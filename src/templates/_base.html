@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1">
+    
+    <style>
+    {% block style %}
+   
+    {% endblock %}
+    </style>
+
+    {% block meta %}
+    <!-- For OGP Tags -->
+    {% endblock %}
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    {% if debug %} <script src="https://cdn.tailwindcss.com"></script>  {% else %} <link rel="stylesheet" href="{% static "css/tailwind-output.css" %}">  {% endif %}
+
+    {% block font %}
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@400;700&display=swap" rel="stylesheet">
+    {% endblock %}
+   
+
+    
+
+    <!--TODO: Figure out where to source a full name efficiently-->
+    <title>{% block title %}{% endblock title %}</title>
+<body class="w-screen h-screen bg-slate-50 dark:bg-slate-800 dark:text-slate-100">
+    <header class="w-full sticky-top flex flex-row justify-between px-4 py-2 border-b-2 border-slate-800 dark:border-slate-100">
+        <a href="/"><h1 class="text-2xl">Townsley</h1></a>
+        <div class="text-xl">
+            <a href="/users/about">About</a> •
+            <a href="#">Comic</a>
+        </div>
+    </header>
+{% block content %} 
+  
+
+{% endblock content %}
+<footer class="w-full sticky-bottom flex flex-row justify-center px-4 py-2 border-t-2 border-slate-800 dark:border-slate-100">
+   <span>A DoubleL Studio creation, made in beautiful Wilmington, North Carolina | <a href="/admin">Log In</a></span>
+</header>
+
+</body>
+</html>
+    

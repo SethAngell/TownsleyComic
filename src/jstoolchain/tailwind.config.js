@@ -2,7 +2,7 @@
 
 module.exports = {
   content: [
-    "../templates/*.html",
+    "**/templates/*.html",
     "../accounts/templates/accounts/*.html",
     "../accounts/templates/registration/*.html",
     "../blog/templates/blog/*.html",

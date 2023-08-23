@@ -319,4 +319,4 @@ app/jstoolchain/node_modules/
 
 app/static
 
-
+**/node_modules

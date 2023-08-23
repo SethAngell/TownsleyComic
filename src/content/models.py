@@ -17,6 +17,9 @@ class ImageContent(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=image_upload_location, null=False, blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class FileContent(models.Model):
     name = models.CharField(max_length=128)
@@ -24,8 +27,5 @@ class FileContent(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     file = models.FileField(upload_to=document_upload_location, null=False, blank=True)
 
-
-class TextContent(models.Model):
-    name = models.CharField(max_length=128)
-    source = models.ForeignKey(models.Model, on_delete=models.CASCADE)
-    # source_type = source.__name__
+    def __str__(self):
+        return self.name
