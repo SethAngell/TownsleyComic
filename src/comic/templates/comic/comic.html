@@ -1,0 +1,38 @@
+{% extends "_base.html" %} {% load static %}
+{% block style %} 
+h1, h2, a {font-family: 'Rubik', sans-serif; } p { font-family: 'Karla', sans-serif; } 
+{%endblock %} {% block font %}
+<link
+  defer
+  href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Karla&family=Rubik:wght@500;700&display=swap"
+  rel="stylesheet"
+/>
+{% endblock %} 
+{% block title %}Home{% endblock title %} 
+{% block content %}
+<div class="w-full h-fit flex flex-col items-center content-center p-4 gap-y-4">
+    <h1 class="text-6xl w-1/2 text-center">{{project.name}}</h1>
+    <div class="text-lg w-1/2 flex flex-col gap-y-3 indent-4">{{ project.description | linebreaks }}</div>
+    <div class="w-1/2 mb-8">
+        <h2 class="text-4xl">Table Of Contents</h2>
+        {% for volume in project.volumes %}
+        <h3 class="text-xl indent-4 hover:text-slate-600 dark:hover:text-slate-400"><a href="#volume-{{volume.id}}">{{volume.name}}</a><h3>
+            {% for scene in volume.scenes %}
+            <h4 class="text-md indent-8 hover:text-slate-600 dark:hover:text-slate-400"><a href="#volume-{{volume.id}}-scene-{{scene.id}}">{{volume.id}}.{{scene.id}} - {{scene.name}}</a></h4>
+            {%endfor%}
+        {%endfor%}
+    </div>
+    {% for volume in project.volumes %}
+    <div class="flex flex-col items-center content-center gap-y-4">
+        <h2 id="volume-{{volume.id}}" class="w-1/2 text-4xl">{{volume.name}}</h3>
+        {% for scene in volume.scenes %}
+        <div class="flex flex-col items-center content-center gap-y-4" id="volume-{{volume.id}}-scene-{{scene.id}}">
+            {% for page in scene.pages %}
+            <img class="flex flex-col items-center content-center w-4/5 lg:w-1/2 gap-y-2 border-4 md:border-8  border-slate-800 dark:border-slate-100" src="{{page.url}}" alt="{{page.alt}}"/>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

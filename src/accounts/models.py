@@ -22,3 +22,11 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.name
+
+
+class AboutPhotos(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    photo = models.ForeignKey("content.ImageContent", on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return f"About Photo - {self.photo}"

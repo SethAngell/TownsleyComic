@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
-from .models import CustomUser
+from .models import CustomUser, AboutPhotos
 
 
 class CustomUserAdmin(UserAdmin):
@@ -48,3 +48,10 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
+
+
+class AboutPhotoAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(AboutPhotos, AboutPhotoAdmin)
