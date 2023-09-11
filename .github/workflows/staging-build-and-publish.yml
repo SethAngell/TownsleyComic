@@ -1,12 +1,10 @@
 name: Automated Staging Site Deployment
 
 on:
-  pull_request:
+  push:
     branches:
       - staging
-    types:
-      - closed
-    on: workflow_dispatch
+  workflow_dispatch:
 
 jobs:
   build-and-push-docker-image:
@@ -58,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-push-docker-image
     steps:
-      - name: Retrieving up to date docker-compose.yaml
+      - name: shutting down the current version
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
