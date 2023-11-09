@@ -1,0 +1,47 @@
+{% extends "_base.html" %} {% load static %}
+{% block style %}
+#alt-text-help-text:before {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    top: 4.1rem;
+    left: -0.5rem;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    background-color: black;
+    border-color: transparent transparent;
+    rotate: 45deg;
+}
+
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center content-center my-8 w-full">
+    <form action="/content/image_edit/{{image.id}}/" enctype='multipart/form-data' method="post" class="flex flex-col items-start w-1/2 border-2 border-slate-800 p-4 m-4">
+        {% csrf_token %}
+        <label class="mb-2" for='name-input'>Name:</label>
+        <input class="border-2 border-slate-800 w-full p-1" type="text" id='name-input' name='name' value='{{image.name}}'  placeholder="Enter an easy to remember name..."/>
+        <label class="my-2 flex flex-row gap-x-2 items-center relative " for='alt-text-input'>
+            <span>Alternative Text:</span>
+            <svg class="peer fill-slate-800 h-4 relative" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+                <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+            </svg>
+            <div id="alt-text-help-text" class="hidden peer-hover:flex absolute left-40 w-96 bg-slate-50 border-slate-800 p-2 border-2 w-128">
+                Alternative text provides screenreader users with a description of the image it accompanies; granting non-sighted users more context around the page they are viewing. So don't be a dick, write some alt text!
+            </div>
+        </label>
+        <textarea class="border-2 border-slate-800 w-full p-1" id='alt-text-input' name='alt_text' max_length="1024" rows="3" placeholder="Enter a descriptions for this image">{{image.alt_text}}</textarea>
+        <label class="my-2" for="image-input">Image:</label>
+        <div id='edit-image-input' class="flex flex-row gap-x-2 items-center w-full">
+            <img src="{{image.image.url}}" class="h-12 border-slate-800 border-2"/>
+            <input class="w-full file:border-slate-800 file:bg-slate-50 file:hover:bg-slate-800 file:hover:text-slate-50 file:border-r-2" type="file" id="image-input" name="image"/>
+        </div>
+        <div id="detail-buttons" class="w-full flex flex-row gap-x-4 items-center justify-center mt-8">
+            <a href="/content/image_detail/{{image.id}}/" class="text-center w-24 p-2 border-4 border-slate-800 text-slate-800 bg-slate-50 shadow-2xl hover:shadow-md hover:bg-slate-800 hover:text-slate-50 uppercase">Back</a>
+            <button type="submit" value="submit" class="w-24 p-2 border-4 border-green-800 text-green-800 bg-slate-50 shadow-2xl hover:focus:shadow-md hover:bg-green-800 hover:text-slate-50 uppercase">Save</button>
+            <button type="cancel" class="w-24 p-2 border-4 border-red-800 text-red-800 bg-slate-50 shadow-2xl hover:focus:shadow-md hover:bg-red-800 hover:text-slate-50 uppercase">Delete</button>
+        </div>
+    </form>
+    
+</div>
+{% endblock %}

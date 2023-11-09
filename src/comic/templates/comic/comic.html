@@ -1,6 +1,6 @@
 {% extends "_base.html" %} {% load static %}
 {% block style %} 
-h1, h2, a {font-family: 'Rubik', sans-serif; } p { font-family: 'Karla', sans-serif; } 
+h1, h2, a, div {font-family: 'Rubik', sans-serif; } p { font-family: 'Karla', sans-serif; } 
 {%endblock %} {% block font %}
 <link
   defer
@@ -10,29 +10,33 @@ h1, h2, a {font-family: 'Rubik', sans-serif; } p { font-family: 'Karla', sans-se
 {% endblock %} 
 {% block title %}Home{% endblock title %} 
 {% block content %}
-<div class="w-full h-fit flex flex-col items-center content-center p-4 gap-y-4">
-    <h1 class="text-6xl w-1/2 text-center">{{project.name}}</h1>
-    <div class="text-lg w-1/2 flex flex-col gap-y-3 indent-4">{{ project.description | linebreaks }}</div>
-    <div class="w-1/2 mb-8">
-        <h2 class="text-4xl">Table Of Contents</h2>
-        {% for volume in project.volumes %}
-        <h3 class="text-xl indent-4 hover:text-slate-600 dark:hover:text-slate-400"><a href="#volume-{{volume.id}}">{{volume.name}}</a><h3>
-            {% for scene in volume.scenes %}
-            <h4 class="text-md indent-8 hover:text-slate-600 dark:hover:text-slate-400"><a href="#volume-{{volume.id}}-scene-{{scene.id}}">{{volume.id}}.{{scene.id}} - {{scene.name}}</a></h4>
-            {%endfor%}
-        {%endfor%}
-    </div>
+<div id='desktop-full-screen' class='hidden relative z-20'>
+    {% include '_desktop-full-screen.html' %}
+</div>
+<div id='mobile-full-screen' class='hidden absolute top-0 z-20'>
+    {% include '_mobile-full-screen.html' %}
+</div>
+<div class="relative w-full h-fit flex flex-col items-center content-center p-4 gap-y-4">
+    <h1 class="text-2xl w-5/6 md:text-6xl md:w-1/2 text-center">{{project.name}}</h1>
+    {% if home == False %}
+    <div class="text-md w-5/6 md:text-lg md:w-1/2 flex flex-col gap-y-3 indent-4">{{ project.description | linebreaks }}</div>
+    {% endif %}
     {% for volume in project.volumes %}
     <div class="flex flex-col items-center content-center gap-y-4">
         <h2 id="volume-{{volume.id}}" class="w-1/2 text-4xl">{{volume.name}}</h3>
         {% for scene in volume.scenes %}
         <div class="flex flex-col items-center content-center gap-y-4" id="volume-{{volume.id}}-scene-{{scene.id}}">
             {% for page in scene.pages %}
-            <img class="flex flex-col items-center content-center w-4/5 lg:w-1/2 gap-y-2 border-4 md:border-8  border-slate-800 dark:border-slate-100" src="{{page.url}}" alt="{{page.alt}}"/>
+            <img class="flex flex-col items-center content-center w-4/5 lg:w-1/2 gap-y-2 border-4 md:border-8  border-slate-800 dark:border-slate-100 focus:border-slate-600 dark:focus:border-slate-300" src="{{page.url}}" alt="{{page.alt}}" data-url='{{page.url}}' onclick="handleImageClick('{{page.url}}')" onkeydown="handleImageKeyboardEvent(event)" tabindex="0"/>
             {% endfor %}
         </div>
         {% endfor %}
     </div>
     {% endfor %}
+    {{project|json_script:"projectData"}}
+        <script>
+            var convertedProject = JSON.parse(document.getElementById('projectData').textContent);
+            registerFullPageContext(convertedProject);
+        </script>
 </div>
 {% endblock content %}

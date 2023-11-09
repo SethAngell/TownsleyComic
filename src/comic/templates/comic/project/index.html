@@ -1,0 +1,21 @@
+{% extends "_base.html" %} {% load static %}
+{% block content %}
+<div class="flex flex-col items-center content-center">
+    <h1 class="text-4xl">Projects</h1>
+    <div id="image-grid" class="grid grid-cols-2 w-full p-8 gap-8">
+        <div class="flex flex-col items-center justify-center border-4 border-slate-800">
+            <a tabindex="0" href="/comic/project/create" class="rounded-full hover:bg-slate-700 hover:border-slate-500 hover:fill-slate-500 fill-slate-800 bg-slate-500 border-4 border-slate-700 flex items-center justify-center h-24 w-24">
+                <svg class=" h-1/2" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3V320c0 17.7 14.3 32 32 32s32-14.3 32-32V109.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64c0 53 43 96 96 96H352c53 0 96-43 96-96V352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V352z"/></svg>
+            </a>
+        </div>
+        {% for project in projects %}
+        <a tabindex="0" role="button" href="/comic/project/{{project.id}}/" class="flex flex-col items-start border-4 border-slate-800 hover:border-slate-600" role="button" >
+            <img class="w-full aspect-square object-cover" src="{{project.image.image.url}}" alt="{{project.image.alt_text}}"/>
+            <h2 class="text-xl pl-2 py-4">{{project.name}}</h2>
+        </a>
+        {%endfor%}
+    </div>
+
+
+</div>
+{% endblock content %}

@@ -20,12 +20,16 @@ from django.urls import path, include
 
 from accounts.urls import static_url_patterns as account_urls
 from comic.urls import static_url_patterns as comic_urls
+from content.urls import static_url_patterns as content_urls
+from comic.views import HomeView
 
 urlpatterns = (
     [
+        path("", HomeView),
         path("admin/", admin.site.urls),
         path("users/", include(account_urls)),
-        path("", include(comic_urls)),
+        path("content/", include(content_urls)),
+        path("comic/", include(comic_urls)),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
