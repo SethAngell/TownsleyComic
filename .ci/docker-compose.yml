@@ -4,20 +4,10 @@ services:
     image: ghcr.io/sethangell/townsley_comic:latest
     container_name: ProdTownsleyComic
     environment:
-      - DB_NAME
-      - DB_USER
-      - DB_PASS
-      - DB_HOST
-      - DB_PORT
       - S3_KEY
       - S3_SECRET_KEY
       - DJANGO_SECRET_KEY
     ports:
       - 8010:8000
     restart: always
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "https://town.com"]
-    #   interval: 200s
-    #   timeout: 200s
-    #   retries: 5
-    #   start_period: 60s
+
