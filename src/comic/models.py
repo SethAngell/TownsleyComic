@@ -8,7 +8,9 @@ class Project(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
     description = models.TextField(max_length=2048, null=True, blank=True)
-    images = models.ManyToManyField(ImageContent, null=True, blank=True)
+    image = models.ForeignKey(
+        ImageContent, on_delete=models.DO_NOTHING, null=True, blank=True
+    )
 
     def __str__(self):
         return self.name

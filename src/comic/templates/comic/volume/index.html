@@ -1,0 +1,25 @@
+{% extends "_base.html" %} {% load static %}
+{% block content %}
+<div class="flex flex-col items-center content-center">
+    <h1 class="mt-8 text-4xl">Volumes</h1>
+    <div id="image-grid" class="flex flex-col content-start items-start w-1/2 p-8 gap-8">
+        <ol class="list-decimal" start="0">
+            <li>
+                <a class=" hover:text-slate-600" tabindex="0" href="/comic/volume/create" class="inline">
+                    Create New Volume
+                </a>
+            </li>
+            {% for volume in volumes %}
+            <li>
+                <a tabindex="0" role="button" href="/comic/volume/{{volume.id}}/" class="w-full flex flex-row items-start hover:text-slate-600" >
+                    <p>Volume #{{volume.order}}. {{volume.name}}, part of the {{volume.project.name}} project.</h2>
+                </a>
+            </li>
+            {%endfor%}
+        </ol>
+
+    </div>
+
+
+</div>
+{% endblock content %}

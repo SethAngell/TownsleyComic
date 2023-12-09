@@ -1,0 +1,26 @@
+{% extends "_base.html" %} {% load static %}
+
+{% block content %}
+<div class="flex flex-col items-center content-center mt-8 w-full">
+    <div id='detail-card' class=" border-4 p-2  border-slate-800 w-1/2 flex flex-col items-start">
+        <div class="flex flex-row items-center gap-x-2">
+            <span class="uppercase text-lg">Scene #{{scene.number}}</span> |
+            <span>Part of <a class="underline hover:text-blue-600 focus:text-blue-600" href="/comic/volume/{{scene.volume.id}}/">volume {{scene.volume.order}}, {{scene.volume.name}}</a></span>
+        </div>
+        <h1 class="text-4xl border-slate-800 mb-4">{{scene.name}}</h1>
+        <h2>This scene contains {{page_count}} pages:</h2>
+            <div class="grid grid-cols-3 gap-2 w-full">
+                {% for page in pages %}
+                <image onclick="window.location.href='/comic/page/{{page.id}}/'" class="w-full object-cover border-2 border-slate-800 hover:border-blue-600" src="{{page.content.image.url}}" alt="{{page.content.alt_text}}"/>
+                {% endfor %}
+            </div>
+            
+    </div>
+</div>
+
+<div id="detail-buttons" class="flex flex-row gap-x-4 items-center justify-center mt-8 mb-12">
+    <a href="/comic/volume/{{scene.volume.id}}/" class="text-center w-24 p-2 border-4 border-slate-800 text-slate-800 bg-slate-50 shadow-2xl hover:shadow-md hover:bg-slate-800 hover:text-slate-50 uppercase">Back</a>
+    <a href="/comic/scene/edit/{{scene.id}}/" class="text-center w-24 p-2 border-4 border-slate-800 text-slate-800 bg-slate-50 shadow-2xl hover:shadow-md hover:bg-slate-800 hover:text-slate-50 uppercase">Edit</a>
+    <button class="w-24 p-2 border-4 border-red-800 text-red-800 bg-slate-50 shadow-2xl hover:focus:shadow-md hover:bg-red-800 hover:text-slate-50 uppercase">Delete</button>
+</div>
+{% endblock %}

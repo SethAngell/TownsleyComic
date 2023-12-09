@@ -1,0 +1,25 @@
+{% extends "_base.html" %} {% load static %}
+
+{% block content %}
+<div class="flex flex-col items-center content-center mt-8 w-full">
+    <div id='detail-card' class=" border-4 p-2  border-slate-800 w-1/2 flex flex-col items-start">
+        <div class="flex flex-row items-center gap-x-2">
+            <span class="uppercase text-lg">Volume #{{volume.order}}</span> |
+            <span>Part of the <a class="underline hover:text-blue-600 focus:text-blue-600" href="/comic/project/{{volume.project.id}}/">{{volume.project.name}}</a> project</span>
+        </div>
+        <h1 class="text-4xl border-slate-800 mb-4">{{volume.name}}</h1>
+        
+        <h2>This volume contains {{scene_count}} scenes:</h2>
+            {% for scene in scenes %}
+            <a class="pl-2 hover:underline focus:underline hover:text-blue-600 focus:text-blue-600" href="/comic/scene/{{scene.id}}/">#{{scene.number}}. {{scene.name}}</a>
+            {% endfor %}
+            <a class="pl-2 text-blue-800 hover:underline focus:underline hover:text-blue-600 focus:text-blue-600" href="/comic/scene/create/?volume={{volume.id}}"><span class="font-bold">+</span> Add new Scene!</a>
+    </div>
+</div>
+
+<div id="detail-buttons" class="flex flex-row gap-x-4 items-center justify-center mt-8 mb-12">
+    <a href="/comic/volume/index/" class="text-center w-24 p-2 border-4 border-slate-800 text-slate-800 bg-slate-50 shadow-2xl hover:shadow-md hover:bg-slate-800 hover:text-slate-50 uppercase">Back</a>
+    <a href="/comic/volume/edit/{{volume.id}}/" class="text-center w-24 p-2 border-4 border-slate-800 text-slate-800 bg-slate-50 shadow-2xl hover:shadow-md hover:bg-slate-800 hover:text-slate-50 uppercase">Edit</a>
+    <button class="w-24 p-2 border-4 border-red-800 text-red-800 bg-slate-50 shadow-2xl hover:focus:shadow-md hover:bg-red-800 hover:text-slate-50 uppercase">Delete</button>
+</div>
+{% endblock %}

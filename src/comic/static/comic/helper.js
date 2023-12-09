@@ -1,0 +1,3 @@
+stateVariables = {
+  flyoutOpen: false,
+};

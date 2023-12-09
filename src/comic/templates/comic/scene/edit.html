@@ -1,0 +1,35 @@
+{% extends "_base.html" %} {% load static %}
+{% block style %}
+
+
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center content-center my-8 w-full">
+    <form action="/comic/volume/edit/{{volume.id}}/" enctype='multipart/form-data' method="post" class="flex flex-col items-start w-1/2 border-2 border-slate-800 p-4 m-4">
+        {% csrf_token %}
+        <label class="mb-2" for='name-input'>Name:</label>
+        <input class="border-2 border-slate-800 w-full p-1" type="text" id='name-input' name='name' value='{{scene.name}}' placeholder="Name your scene..."/>
+        <label for="number-input" class="my-2">Number: </label>
+        <input type="number" class="border-2 border-slate-800 w-full p-1" id='number-input' name='number' value='{{scene.number}}'></input>
+        <label class="my-2" for="volume-input">Volume:</label>
+        <select class="appearance-none p-2 rounded-none border-2 border-slate-800 w-full" value="{{scene.volume.id}}" id="volume-input" name="volume">
+            {% for volume in volumes %}
+            <option value="{{volume.id}}">{{volume.name}}</option>
+            {% endfor %}
+        </select>
+        <label class="my-2" for="page-input">Pages:</label>
+        <select multiple class="appearance-none p-2 rounded-none border-2 border-slate-800 w-full "id="page-input" name="pages">
+            {% for page_option in pages %}
+            <option value="{{page_option.page.id}}" selected="{{page_option.selected}}"><img src="{{page_option.page.content.image.url}}" alt="{{page_option.page.content.alt_text}}"></option>
+            {% endfor %}
+        </select>
+        <div id="detail-buttons" class="w-full flex flex-row gap-x-4 items-center justify-center mt-8">
+            <a href="/comic/scene/{{scene.id}}/" class="text-center w-24 p-2 border-4 border-slate-800 text-slate-800 bg-slate-50 shadow-2xl hover:shadow-md hover:bg-slate-800 hover:text-slate-50 uppercase">Back</a>
+            <button type="submit" value="submit" class="w-24 p-2 border-4 border-green-800 text-green-800 bg-slate-50 shadow-2xl hover:focus:shadow-md hover:bg-green-800 hover:text-slate-50 uppercase">Save</button>
+            <button type="cancel" class="w-24 p-2 border-4 border-red-800 text-red-800 bg-slate-50 shadow-2xl hover:focus:shadow-md hover:bg-red-800 hover:text-slate-50 uppercase">Delete</button>
+        </div>
+    </form>
+    
+</div>
+{% endblock %}
