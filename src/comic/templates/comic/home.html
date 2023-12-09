@@ -17,7 +17,7 @@ h1, h2, a, div {font-family: 'Rubik', sans-serif; } p { font-family: 'Karla', sa
         {% for scene in volume.scenes %}
         <div class="flex flex-col items-center content-center gap-y-4" id="volume-{{volume.id}}-scene-{{scene.id}}">
             {% for page in scene.pages %}
-            <img class="flex flex-col items-center content-center w-4/5 lg:w-1/2 gap-y-2 border-4 md:border-8  border-slate-800 dark:border-slate-100" src="{{page.url}}" alt="{{page.alt}}"/>
+            <img class="flex flex-col items-center content-center w-4/5  gap-y-2 border-4 md:border-8  border-slate-800 dark:border-slate-100" src="{{page.url}}" alt="{{page.alt}}"/>
             {% endfor %}
         </div>
         {% endfor %}

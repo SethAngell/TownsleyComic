@@ -1,0 +1,52 @@
+name: Build Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push-docker-image:
+    name: Builder Docker image and push to GHCR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Github Packages
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      - name: Build image and push to Github Container Registry
+        uses: docker/build-push-action@v3
+        with:
+          context: ./src
+          file: ./src/Dockerfile.prod
+          push: true
+          tags: |
+            ghcr.io/sethangell/townsley_comic:latest
+            ghcr.io/sethangell/townsley_comic:${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}
+
+      - name: Autoincrement a new patch version
+        run: |
+          echo "MINOR_VERSION=$((${{ vars.MINOR_VERSION }}+1))" >> $GITHUB_ENV
+
+      - name: update minor version
+        run: |
+          gh api \
+          --method PATCH \
+          -H "Accept: application/vnd.github+json" \
+          /repos/SethAngell/TownsleyComic/actions/variables/MINOR_VERSION \
+          -f name='MINOR_VERSION' \
+          -f value=$NEW_VERSION
+        env:
+          GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
+          NEW_VERSION: ${{ env.MINOR_VERSION }}
