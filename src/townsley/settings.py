@@ -119,7 +119,7 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 if bool(int(os.environ.get("USE_S3", 0))):
     AWS_ACCESS_KEY_ID = os.environ.get("S3_KEY")
     AWS_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_KEY")
-    AWS_STORAGE_BUCKET_NAME = "townlsey"
+    AWS_STORAGE_BUCKET_NAME = "townsley"
     AWS_S3_ENDPOINT_URL = (
         "https://f35295ca4b5593f15d54cf0ca7041025.r2.cloudflarestorage.com/"
     )
@@ -154,3 +154,37 @@ STATICFILES_DIRS = [BASE_DIR / "project_static", f"{BASE_DIR}/comic"]
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 INTERNAL_IPS = ("127.0.0.1", "172.20.0.1", "172.21.0.3")
+
+# ===============================
+# = = = Deployment Settings = = =
+if DEBUG is False:
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_HSTS_SECONDS = 36000
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    X_FRAME_OPTIONS = "DENY"
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "handlers": {
+            "console": {"class": "logging.StreamHandler"},
+            "file": {
+                "level": "DEBUG",
+                "class": "logging.FileHandler",
+                "filename": "debug.log",
+            },
+        },
+        "loggers": {
+            "django": {
+                "handlers": ["file", "console"],
+                "level": "DEBUG",
+                "propagate": True,
+            },
+        },
+    }
