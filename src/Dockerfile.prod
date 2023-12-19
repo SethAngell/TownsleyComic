@@ -32,8 +32,13 @@ COPY . .
 
 # Compile TailwindCSS Files
 WORKDIR /usr/src/app/jstoolchain
-RUN curl -fsSL https://fnm.vercel.app/install | bash
-RUN fnm use
+RUN apt-get update && \
+  apt-get install -y curl unzip gnupg2 tini && \
+  # install fnm
+  curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "/opt/fnm" --skip-shell && \
+  ln -s /opt/fnm/fnm /usr/bin/ && chmod +x /usr/bin/fnm && \
+  # smoke test for fnm
+  fnm -V
 RUN npm install
 RUN npm run build
 RUN rm -rf node_modules
