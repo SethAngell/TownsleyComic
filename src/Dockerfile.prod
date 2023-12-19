@@ -38,7 +38,12 @@ RUN apt-get update && \
   curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "/opt/fnm" --skip-shell && \
   ln -s /opt/fnm/fnm /usr/bin/ && chmod +x /usr/bin/fnm && \
   # smoke test for fnm
-  fnm -V
+  fnm -V \
+  /bin/bash -c "source /etc/bash.bashrc && fnm use default" && \
+  /bin/bash -c 'source /etc/bash.bashrc && /bin/ln -s "/opt/fnm/aliases/default/bin/node" /usr/bin/node' && \
+  /bin/bash -c 'source /etc/bash.bashrc && /bin/ln -s "/opt/fnm/aliases/default/bin/npm" /usr/bin/npm' && \
+  /bin/bash -c 'source /etc/bash.bashrc && /bin/ln -s "/opt/fnm/aliases/default/bin/npx" /usr/bin/npx'
+RUN fnm use
 RUN npm install
 RUN npm run build
 RUN rm -rf node_modules
