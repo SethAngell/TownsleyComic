@@ -4,7 +4,7 @@ services:
     image: ghcr.io/sethangell/townsley_comic:latest
     container_name: ProdTownsleyComic
     volumes:
-      - data:/usr/src/app/data/
+      - ./data/:/usr/src/app/data/
     environment:
       - S3_KEY
       - S3_SECRET_KEY

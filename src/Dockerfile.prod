@@ -32,8 +32,8 @@ COPY . .
 
 # Compile TailwindCSS Files
 WORKDIR /usr/src/app/jstoolchain
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install -y nodejs
+RUN curl -fsSL https://fnm.vercel.app/install | bash
+RUN fnm use
 RUN npm install
 RUN npm run build
 RUN rm -rf node_modules
