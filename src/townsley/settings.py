@@ -71,7 +71,7 @@ WSGI_APPLICATION = "townsley.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "townsley.db",
+        "NAME": "data/townsley.db",
     }
 }
 
