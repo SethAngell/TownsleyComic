@@ -1,10 +1,12 @@
 from accounts.models import CustomUser, AboutPhotos
+from config.models import ConfigObject
 from django.shortcuts import render
 
 
 def AboutView(request):
-    user = CustomUser.objects.get(id=1)
-    photos = AboutPhotos.objects.filter(user=1)
+    current_author = int(ConfigObject.objects.get(key="CURRENT_AUTHOR").value)
+    user = CustomUser.objects.get(id=current_author)
+    photos = AboutPhotos.objects.filter(user=current_author)
 
     simple_photos = []
     for photo in photos:
