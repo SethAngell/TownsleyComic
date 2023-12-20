@@ -1,4 +1,10 @@
 {% extends "_base.html" %} {% load static %}
+{% block meta %}
+<meta property="og:title" content="About {{user.name}}" />
+<meta property="og:description" content="More information about Townsley's author, {{user.name}}"/>
+<meta property="og:url" content="https://townsleycomic.com/about" />
+<meta property="og:image" content="{{profile_picture.url}}" />
+{% endblock %}
 {% block style %} 
 h1, h2, a, div {font-family: 'Rubik', sans-serif; } p { font-family: 'Karla', sans-serif; } 
 {%endblock %} {% block font %}

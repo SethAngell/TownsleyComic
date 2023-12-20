@@ -8,6 +8,13 @@ h1, h2, a, div {font-family: 'Rubik', sans-serif; } p { font-family: 'Karla', sa
   rel="stylesheet"
 />
 {% endblock %} 
+{% block meta %}
+<meta property="og:title" content="Townsley Comic" />
+<meta property="og:description" content="A graphic novel by Cole Keehne"/>
+<meta property="og:type" content="book" />
+<meta property="og:url" content="https://townsleycomic.com" />
+<meta property="og:image" content="{{project.image_url}}" />
+{% endblock %}
 {% block title %}Home{% endblock title %} 
 {% block content %}
 <div id='desktop-full-screen' class='hidden fixed z-20'>

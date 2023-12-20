@@ -197,6 +197,7 @@ def _generate_project_payload(project, volumes, scenes, pages):
     projectPayload = {
         "name": project.name,
         "description": project.description,
+        "image_url": project.image.image.url,
         "volumes": [],
         "pageArray": [],
     }
