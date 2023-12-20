@@ -17,6 +17,7 @@ def AboutView(request):
     context = {
         "user": user,
         "profile_picture": {"url": user.photo.image.url, "alt": user.photo.alt_text},
+        "about_photos_exist": len(simple_photos) != 0,
         "photos": simple_photos,
     }
 

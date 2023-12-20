@@ -11,14 +11,16 @@ h1, h2, a, div {font-family: 'Rubik', sans-serif; } p { font-family: 'Karla', sa
 {% block title %}About{% endblock title %} 
 {% block content %}
 <div class="w-full h-fit flex flex-col items-center content-center p-4 gap-y-4">
-    <img class="mt-8 border-4 border-slate-800 dark:border-slate-100 w-1/6" src="{{profile_picture.url}}" alt="{{profile_picture.alt}}"/>
+    <img class="mt-8 border-4 border-slate-800 dark:border-slate-100 w-4/5 md:w-1/6" src="{{profile_picture.url}}" alt="{{profile_picture.alt}}"/>
     <h2 class="text-4xl">{{ user.name }}</h2>
-    <div class="text-lg w-1/2 flex flex-col gap-y-3 indent-4">{{ user.bio | linebreaks }}</div>
+    <div class="text-lg w-11/12 md:w-1/2 flex flex-col gap-y-3 indent-4">{{ user.bio | linebreaks }}</div>
+    {% if about_photos_exist %}
     <h2 class="text-4xl">Photos</h2>
-    <div class="grid grid-cols-4 gap-4 w-4/6">
+    <div class="grid grid-cols-2 gap-2 w-11/12 md:gap-4 md:grid-cols-4 md:w-4/6">
       {% for photo in photos %}
         <img src="{{photo.url}}" alt="{{photo.alt}}" class="border-2 border-slate-800 dark:border-slate-100 object-cover aspect-square	"/>
       {% endfor %}
     </div>
+    {% endif %}
 </div>
 {% endblock content %}
