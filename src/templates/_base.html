@@ -37,7 +37,8 @@
     <header class="w-full sticky-top flex flex-row justify-between px-4 py-2 border-b-2 border-slate-800 dark:border-slate-100">
         <a href="/"><h1 class="text-2xl">Townsley</h1></a>
         <div class="text-xl font-bold flex flex-row gap-x-1">
-            {% if user.is_authenticated %}
+            {% if request.FF_FRONTEND_CONTENT_MANAGEMENT %}
+
             <div id="new-content-button" class="relative">
                 <button class="hover:text-slate-700" onclick="toggleNewContentOptions()">Manage Content</span>
                 <div id="new-content-options" class="hidden absolute mt-3 p-2 bg-slate-50 border-b-2 border-slate-800 border-x-2 w-full flex-col items-start z-20" id="new-content-options">
@@ -49,6 +50,7 @@
                 </div>
             </div> •
             {% endif %}
+            <a href="/">Comic</a> •
             <a href="/users/about">About</a>
         </div>
     </header>
