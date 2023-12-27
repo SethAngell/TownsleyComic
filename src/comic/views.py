@@ -218,7 +218,7 @@ def _generate_project_payload(project, volumes, scenes, pages):
                 )
 
             volumePayload["scenes"].append(
-                {"id": scene.id, "name": scene.name, "pages": current_scene}
+                {"id": scene.id, "pages": current_scene}
             )
 
         projectPayload["volumes"].append(volumePayload)

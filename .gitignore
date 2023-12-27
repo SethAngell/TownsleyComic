@@ -321,5 +321,6 @@ app/postgres
 app/jstoolchain/node_modules/
 
 app/static
+src/static
 
 **/node_modules

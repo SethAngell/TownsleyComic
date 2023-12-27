@@ -17,4 +17,4 @@ class VolumeForm(ModelForm):
 class SceneForm(ModelForm):
     class Meta:
         model = Scene
-        fields = ["name", "number", "volume"]
+        fields = [ "number", "volume"]
