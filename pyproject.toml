@@ -10,7 +10,6 @@ authors = [{ name = "Seth Angell", email = "work@sethangell.com" }]
 readme = "README.md"
 license = { text = "MIT License" }
 
-
 [project.urls]
 Homepage = "https://github.com/SethAngell/TownsleyComic"
 Site = "https://townsleycomic.com"
