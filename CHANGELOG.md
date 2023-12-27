@@ -2,6 +2,13 @@
 
 
 
+## v0.3.0 (2023-12-27)
+
+### Feature
+
+* feat: update how version is pulled ([`6be5898`](https://github.com/SethAngell/TownsleyComic/commit/6be58981afe0a5b368f1665f6f77cb389a0690de))
+
+
 ## v0.2.2 (2023-12-27)
 
 ### Fix
