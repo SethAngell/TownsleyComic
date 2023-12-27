@@ -2,6 +2,13 @@
 
 
 
+## v0.2.2 (2023-12-27)
+
+### Fix
+
+* fix: try and flip the process on it&#39;s head ([`addc32c`](https://github.com/SethAngell/TownsleyComic/commit/addc32c3ec1304ff4bb7fafb1e2b3f6b62d66825))
+
+
 ## v0.2.1 (2023-12-27)
 
 ### Fix
