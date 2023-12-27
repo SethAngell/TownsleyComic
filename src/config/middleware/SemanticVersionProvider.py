@@ -9,7 +9,5 @@ class SemanticVersionProvider:
 
     def __call__(self, request):
         request.SEMVER = get_feature_version()
-        print('test')
-        print(get_feature_version())
 
         return self.get_response(request)

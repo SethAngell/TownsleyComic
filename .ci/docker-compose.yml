@@ -9,6 +9,7 @@ services:
       - S3_KEY
       - S3_SECRET_KEY
       - DJANGO_SECRET_KEY
+      - SEMANTIC_VERSION
     ports:
       - 8010:8000
     restart: always
