@@ -2,6 +2,17 @@
 
 
 
+## v0.3.1 (2023-12-27)
+
+### Fix
+
+* fix: update refresh script ([`ff7084f`](https://github.com/SethAngell/TownsleyComic/commit/ff7084fc8ce0f7b7475704adae8069be653294f0))
+
+### Unknown
+
+* Merge branch &#39;main&#39; of github.com:SethAngell/TownsleyComic ([`357f510`](https://github.com/SethAngell/TownsleyComic/commit/357f5102275981ad142daeb3424c03bc288041c8))
+
+
 ## v0.3.0 (2023-12-27)
 
 ### Feature
