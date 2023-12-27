@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  build-and-push-docker-image:
-    name: Builder Docker image and push to GHCR
+  generate-semantic-release:
+    name: Publish a new semantic version of this project.
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +21,12 @@ jobs:
         uses: python-semantic-release/python-semantic-release@master
         with:
           github_token: ${{ secrets.ADMIN_TOKEN }}
+  
+  build-and-push-docker-image:
+    name: Package and publish a new docker container.
+    runs-on: ubuntu-latest
 
+    steps:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
@@ -53,6 +58,9 @@ jobs:
           push: true
           tags: |
             ghcr.io/sethangell/townsley_comic:latest
-            ghcr.io/sethangell/townsley_comic:${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}
+            ghcr.io/sethangell/townsley_comic:${{ env.SEMANTIC_VERSION }}
           secrets: |
-            SEMANTIC_VERSION=${{ env.SEMANTIC_VERSION }}
+            SEMANTIC_VERSION=v${{ env.SEMANTIC_VERSION }}
+
+        
+
