@@ -293,7 +293,6 @@ fabric.properties
 [Ll]ib
 [Ll]ib64
 [Ll]ocal
-[Ss]cripts
 pyvenv.cfg
 prod.env
 .env
