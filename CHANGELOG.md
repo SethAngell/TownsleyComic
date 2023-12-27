@@ -2,6 +2,13 @@
 
 
 
+## v0.4.0 (2023-12-27)
+
+### Feature
+
+* feat: updated refresh script ([`a94a526`](https://github.com/SethAngell/TownsleyComic/commit/a94a5267a9a89356c524196ac8081fe2ded46479))
+
+
 ## v0.3.1 (2023-12-27)
 
 ### Fix
