@@ -4,10 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     
     <style>
-        h1, h2, a, div {font-family: 'Rubik', sans-serif; } p { font-family: 'Karla', sans-serif; } 
-
+        h1, h2, a, div, span {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            text-transform:  uppercase;
+        } 
+        p { 
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            text-transform:  uppercase;
+        } 
+        .project_name { 
+            font-family: 'DM Serif Display', serif; 
+            text-transform: none;
+        }
     {% block style %}
    
     {% endblock %}
@@ -23,7 +34,7 @@
     {% if debug %}   {% else %} <link rel="stylesheet" href="{% static "css/tailwind-output.css" %}">  {% endif %}
     <link
     defer
-    href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Karla&family=Rubik:wght@500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Karla&family=Rubik:wght@500;700&family=DM+Serif+Display&display=swap"
     rel="stylesheet"
   />
     {% block font %}
@@ -33,20 +44,20 @@
 </head>
 
     <title>{% block title %}{% endblock title %}</title>
-<body class="w-screen h-screen min-h-screen relative bg-slate-50 text-slate-900 dark:bg-slate-800 dark:text-slate-100">
-    <header class="w-full sticky-top flex flex-row justify-between px-4 py-2 border-b-2 border-slate-800 dark:border-slate-100">
+<body class="w-screen h-screen min-h-screen relative bg-slate-50 text-slate-900 ">
+    <header class="w-full sticky-top flex flex-row justify-between px-4 py-2 border-b-2 border-slate-800 ">
         <a href="/"><h1 class="text-2xl">Townsley</h1></a>
-        <div class="text-xl font-bold flex flex-row gap-x-1">
+        <div class="text-xl flex flex-row gap-x-1">
             {% if request.FF_FRONTEND_CONTENT_MANAGEMENT %}
 
             <div id="new-content-button" class="relative">
                 <button class="hover:text-slate-700" onclick="toggleNewContentOptions()">Manage Content</span>
                 <div id="new-content-options" class="hidden absolute mt-3 p-2 bg-slate-50 border-b-2 border-slate-800 border-x-2 w-full flex-col items-start z-20" id="new-content-options">
-                    <a class="text-slate-900 hover:text-slate-700 dark:hover:text-slate-300" href="/content/image_index">Images</a>
-                    <a class="text-slate-900 hover:text-slate-700 dark:hover:text-slate-300" href="/comic/">Pages</a>
-                    <a class="text-slate-900 hover:text-slate-700 dark:hover:text-slate-300" href="/comic/new-scene">Scenes</a>
-                    <a class="text-slate-900 hover:text-slate-700 dark:hover:text-slate-300" href="/comic/volume/index">Volumes</a>
-                    <a class="text-slate-900 hover:text-slate-700 dark:hover:text-slate-300" href="/comic/project/index">Projects</a>
+                    <a class="text-slate-900 hover:text-slate-700 " href="/content/image_index">Images</a>
+                    <a class="text-slate-900 hover:text-slate-700 " href="/comic/">Pages</a>
+                    <a class="text-slate-900 hover:text-slate-700 " href="/comic/new-scene">Scenes</a>
+                    <a class="text-slate-900 hover:text-slate-700 " href="/comic/volume/index">Volumes</a>
+                    <a class="text-slate-900 hover:text-slate-700 " href="/comic/project/index">Projects</a>
                 </div>
             </div> •
             {% endif %}
@@ -59,7 +70,7 @@
   
 
 {% endblock content %}
-<footer class="w-full static bottom-0 flex flex-col text-center md:gap-x-2 items-center md:flex-row justify-center px-4 py-2 border-t-2 border-slate-800 dark:border-slate-100">
+<footer class="w-full static bottom-0 flex flex-col text-center md:gap-x-2 items-center md:flex-row justify-center px-4 py-2 border-t-2 border-slate-800 ">
    <span>A <a class="text-green-500 hover:text-green-800 font-normal" href="https://doublel.studio">DoubleL Studio</a> website from beautiful Wilmington, North Carolina</span>
    {% if not user.is_authenticated %}
    <span class="hidden md:block"> | </span> 

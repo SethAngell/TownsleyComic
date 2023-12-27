@@ -5,8 +5,18 @@
 <meta property="og:url" content="https://townsleycomic.com/about" />
 <meta property="og:image" content="{{profile_picture.url}}" />
 {% endblock %}
-{% block style %} 
-h1, h2, a, div {font-family: 'Rubik', sans-serif; } p { font-family: 'Karla', sans-serif; } 
+{% block style %}
+h1, h2, a, div {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    text-transform:  uppercase;
+} 
+p { 
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    text-transform:  uppercase;
+} 
+.project_name { 
+    font-family: 'DM Serif Display', serif; 
+} 
 {%endblock %} {% block font %}
 <link
   defer
@@ -17,14 +27,14 @@ h1, h2, a, div {font-family: 'Rubik', sans-serif; } p { font-family: 'Karla', sa
 {% block title %}About{% endblock title %} 
 {% block content %}
 <div class="w-full h-fit flex flex-col items-center content-center p-4 gap-y-4">
-    <img class="mt-8 border-4 border-slate-800 dark:border-slate-100 w-4/5 md:w-1/6" src="{{profile_picture.url}}" alt="{{profile_picture.alt}}"/>
+    <img class="mt-8 border-4 border-slate-800  w-4/5 md:w-1/6" src="{{profile_picture.url}}" alt="{{profile_picture.alt}}"/>
     <h2 class="text-4xl">{{ user.name }}</h2>
     <div class="text-lg w-11/12 md:w-1/2 flex flex-col gap-y-3 indent-4">{{ user.bio | linebreaks }}</div>
     {% if about_photos_exist %}
     <h2 class="text-4xl">Photos</h2>
     <div class="grid grid-cols-2 gap-2 w-11/12 md:gap-4 md:grid-cols-4 md:w-4/6">
       {% for photo in photos %}
-        <img src="{{photo.url}}" alt="{{photo.alt}}" class="border-2 border-slate-800 dark:border-slate-100 object-cover aspect-square	"/>
+        <img src="{{photo.url}}" alt="{{photo.alt}}" class="border-2 border-slate-800  object-cover aspect-square	"/>
       {% endfor %}
     </div>
     {% endif %}

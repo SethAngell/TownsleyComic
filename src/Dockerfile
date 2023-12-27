@@ -11,6 +11,7 @@ ENV DB_USER postgres
 ENV DB_PASS bad_password
 ENV DB_HOST "db"
 ENV DB_PORT 5432
+ENV SEMANTIC_VERSION 'DEVELOPMENT'
 
 RUN apt-get update \
   && apt-get -y install gcc postgresql libpq-dev vim \

@@ -13,6 +13,18 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+      
+      - name: Python Semantic Release
+        uses: python-semantic-release/python-semantic-release@master
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Grab Updated Version
+        run: |
+          SEMVER=$(cat pyproject.toml | grep version\ \= | sed -r 's/^version = "(.*)"$/\1/')
+          echo "SEMANTIC_VERSION=$(echo $SEMVER)" >> $GITHUB_ENV
+          echo $SEMVER && sleep 5
 
       - name: Set up Docker Buildx
         id: buildx
@@ -34,19 +46,5 @@ jobs:
           tags: |
             ghcr.io/sethangell/townsley_comic:latest
             ghcr.io/sethangell/townsley_comic:${{ vars.MAJOR_VERSION }}.${{ vars.MINOR_VERSION }}
-
-      - name: Autoincrement a new patch version
-        run: |
-          echo "MINOR_VERSION=$((${{ vars.MINOR_VERSION }}+1))" >> $GITHUB_ENV
-
-      - name: update minor version
-        run: |
-          gh api \
-          --method PATCH \
-          -H "Accept: application/vnd.github+json" \
-          /repos/SethAngell/TownsleyComic/actions/variables/MINOR_VERSION \
-          -f name='MINOR_VERSION' \
-          -f value=$NEW_VERSION
-        env:
-          GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
-          NEW_VERSION: ${{ env.MINOR_VERSION }}
+          secrets: |
+            SEMANTIC_VERSION=${{ env.SEMANTIC_VERSION }}

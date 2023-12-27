@@ -1,0 +1,9 @@
+{% extends "admin/base.html" %}
+
+{% load i18n static %}<!DOCTYPE html>
+
+{% block welcome-msg %}
+    <strong>Townsley version {{request.SEMVER}} | </strong> 
+    {% translate 'Welcome,' %}
+    <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+{% endblock %}

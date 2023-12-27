@@ -26,12 +26,11 @@ class Volume(models.Model):
 
 
 class Scene(models.Model):
-    name = models.CharField(max_length=128)
     number = models.IntegerField()
     volume = models.ForeignKey(Volume, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.volume}: {self.name}  - Scene {self.number}"
+        return f"{self.volume}: - Scene {self.number}"
 
 
 class Page(models.Model):
