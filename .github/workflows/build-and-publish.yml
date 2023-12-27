@@ -25,6 +25,7 @@ jobs:
   build-and-push-docker-image:
     name: Package and publish a new docker container.
     runs-on: ubuntu-latest
+    needs: generate-semantic-release
 
     steps:
       - name: Checkout Code
