@@ -2,6 +2,19 @@
 
 
 
+## v0.2.0 (2023-12-27)
+
+### Feature
+
+* feat: woke up this morning and used my brain ([`84cf6b2`](https://github.com/SethAngell/TownsleyComic/commit/84cf6b2e8dbdb58fb952c3282f41d137881e25fb))
+
+### Unknown
+
+* Merge pull request #12 from SethAngell/chore/setup-semantic
+
+feat: woke up this morning and used my brain ([`be7f849`](https://github.com/SethAngell/TownsleyComic/commit/be7f849e804ee47eca80c0a9f3c9e4654a985993))
+
+
 ## v0.1.0 (2023-12-27)
 
 ### Feature
