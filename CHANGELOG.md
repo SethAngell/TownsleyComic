@@ -2,6 +2,19 @@
 
 
 
+## v0.2.1 (2023-12-27)
+
+### Fix
+
+* fix: make ci actions run sequentially ([`7a51d55`](https://github.com/SethAngell/TownsleyComic/commit/7a51d55ddf8af0f26ed3d985b04002feb4d6c33b))
+
+### Unknown
+
+* Merge pull request #13 from SethAngell/chore/setup-semantic
+
+fix: make ci actions run sequentially ([`a0e2b2d`](https://github.com/SethAngell/TownsleyComic/commit/a0e2b2d606b3044c8e986b8a759a2c98e49f837f))
+
+
 ## v0.2.0 (2023-12-27)
 
 ### Feature

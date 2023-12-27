@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "TownsleyComic"
 description = "A Django based showcase site for Cole Keehne's periodical comic, Townsley."
-version = "0.2.0"
+version = "0.2.1"
 authors = [{ name = "Seth Angell", email = "work@sethangell.com" }]
 readme = "README.md"
 license = { text = "MIT License" }
