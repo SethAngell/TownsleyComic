@@ -1,11 +1,21 @@
 from comic.models import Project, Volume, Scene, Page
-from content.models import ImageContent
+from content.models import FileContent,ImageContent
+from accounts.models import CustomUser
 from config.models import ConfigObject
-from django.shortcuts import render
 from comic.forms import ProjectForm, VolumeForm, SceneForm
+from townsley.settings import DEBUG
+
+from django.shortcuts import render
+from django.core.files.base import ContentFile
 from django.http import HttpResponseRedirect
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
+
+from PIL import Image
+import requests
+from io import BytesIO, StringIO
 from uuid import uuid4
 
 
@@ -18,21 +28,27 @@ def HomeView(request):
 
     projectPayload = _generate_project_payload(project, volumes, scenes, pages)
 
-    context = {"project": projectPayload, "home": True}
+    file_name = f"{project.name.replace(' ', '_')}_full_comic".lower()
+    file_content = FileContent.objects.get(name=file_name)
+
+    context = {"project": projectPayload,"comic_url": file_content.file.url, "home": True}
 
     return render(request, "comic/comic.html", context)
 
 
 def ComicView(request):
+    print('hello')
     displayed_project = int(ConfigObject.objects.get(key="CURRENT_PROJECT").value)
     project = Project.objects.get(id=displayed_project)
     volumes = Volume.objects.filter(project=project.id).order_by("order")
     scenes = Scene.objects.filter(volume__in=[volume.id for volume in volumes])
     pages = Page.objects.filter(scene__in=[scene.id for scene in scenes])
 
+    
+
     projectPayload = _generate_project_payload(project, volumes, scenes, pages)
 
-    context = {"project": projectPayload, "home": False}
+    context = {"project": projectPayload, "comic_url": file_content.file.url, "home": False}
 
     return render(request, "comic/comic.html", context)
 
@@ -232,3 +248,70 @@ def _get_pages_for_scene(page_list, scene_id):
 
 def _get_scenes_for_volume(scene_list, volume_id):
     return [scene for scene in scene_list if scene.volume.id == volume_id]
+
+def generate_image_from_image_content(uri: str):
+    if DEBUG:
+        return Image.open(f'.{uri}')
+    else:
+        response = requests.get(uri)
+        return Image.open(BytesIO(response.content))
+    
+def generate_pdf_from_payload(project_payload: dict, file_name: str) -> ContentFile:
+    file_buffer = BytesIO()
+    images = []
+
+    for page in project_payload["pageArray"]:
+        images.append(generate_image_from_image_content(page['url']))
+        
+    
+    images[0].save(
+        fp=file_buffer, format="PDF", save_all=True, append_images=images[1:]
+    )
+
+    content_file = ContentFile(file_buffer.getvalue(), file_name)
+
+    return content_file
+
+def file_content_exists(file_name: str) -> bool:
+    try:
+        FileContent.objects.get(name=file_name)
+        return True
+    except FileContent.DoesNotExist:
+        return False
+
+def persist_new_comic_pdf(file_name: str, file_obj: ContentFile):
+    name = file_name.split('.')[0]
+    user_id = int(ConfigObject.objects.get(key="CURRENT_AUTHOR").value)
+    user = CustomUser.objects.get(id=user_id)
+
+    if file_content_exists(name):
+        file_content = FileContent.objects.get(name=name)
+        file_content.file = file_obj
+        file_content.save()
+    else:
+        file_content = FileContent(
+            name=name,
+            alt_text=f'A full pdf of the {name} comic',
+            user=user,
+            file=file_obj
+        )
+        file_content.save()
+
+@receiver(post_save, sender=Page)
+def generate_comic_pdf(sender, **kwargs):
+    print('⌛ Begin PDF generation...')
+    displayed_project = int(ConfigObject.objects.get(key="CURRENT_PROJECT").value)
+    project = Project.objects.get(id=displayed_project)
+    volumes = Volume.objects.filter(project=project.id).order_by("order")
+    scenes = Scene.objects.filter(volume__in=[volume.id for volume in volumes])
+    pages = Page.objects.filter(scene__in=[scene.id for scene in scenes])
+
+    projectPayload = _generate_project_payload(project, volumes, scenes, pages)
+    file_name = f"{project.name.replace(' ', '_')}_full_comic.pdf".lower()
+    generated_file = generate_pdf_from_payload(projectPayload, file_name)
+    persist_new_comic_pdf(file_name, generated_file)
+    print('✅ PDF Generated!')
+
+    
+    
+    
